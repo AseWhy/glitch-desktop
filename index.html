@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="./css/main.css">
+
+    <title>Wallpaper</title>
+</head>
+<body style="margin: 0px;overflow: hidden;">
+    <canvas id="glitch"></canvas>
+    <canvas id="ui"></canvas>
+    <div id="player">
+        <div id="ui_container">
+            <div id="ui_player_start_cnt">
+                <div id="ui_data_cont">
+                    <p>⇀_O It seems you are not listening to anything (((</p>
+                    <div id="ui_play_start">Play anything ?) <br>
+                        ▶
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ui_player_control">
+            <div id="ui_center_cont">
+                <div id="ui_play_stop_dt" class="dt_button">
+                    ■
+                </div>
+                <div id="ui_play_next_dt" class="dt_button">
+                    ▶▶
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    </div>
+
+    <!--scripts-->
+    <script>
+        // Settings
+
+        let SETTINGS = {
+            ui: false,
+            glitch_power: 3,
+            path_to_img: "./img/default_0.jpg",
+            img_size_policy: 1, // Nothing Stretch Increase
+            ui_text_color: "yellow",
+            ownername: "Сoolhacker",
+            rects: 256,
+            player_volume: 0.5,
+            ui_align: 8 // bottom right
+        }, update_texture = () => {};
+
+        window.wallpaperPropertyListener = {
+            applyUserProperties: (properties) => {
+                if(properties.ui_glitch_power != undefined)
+                    SETTINGS.glitch_power = parseInt(properties.ui_glitch_power.value);
+
+                if(properties.ui_img_size_policy != undefined){
+                    SETTINGS.img_size_policy = properties.ui_img_size_policy.value;
+                    update_texture();
+                }
+                
+                if(properties.ui_path_to_img != undefined){
+                    SETTINGS.path_to_img = "file:///" + properties.ui_path_to_img.value;
+                    update_texture();
+                }
+
+                if(properties.ui_rects != undefined){
+                    SETTINGS.rects = parseInt(properties.ui_rects.value);
+                }
+
+                if(properties.ui_ui_align != undefined){
+                    SETTINGS.ui_align = parseInt(properties.ui_ui_align.value);
+                }
+
+                if(properties.ui_ui_text_color != undefined){
+                    let color = properties.ui_ui_text_color.value.split(" ");
+                    SETTINGS.ui_text_color = `rgb(${parseFloat(color[0]) * 255}, ${parseFloat(color[1]) * 255}, ${parseFloat(color[2]) * 255})`;
+                }
+
+                if(properties.ui_ownername != undefined){
+                    SETTINGS.ownername = properties.ui_ownername.value;
+                }
+
+                if(properties.ui_draw_allow != undefined){
+                    SETTINGS.ui = properties.ui_draw_allow.value;
+                }
+
+                if(properties.ui_wp_index != undefined){
+                    SETTINGS.path_to_img = properties.ui_wp_index.value;
+                    update_texture();
+                }
+            }
+        }
+
+    </script>
+    
+    <script src="js/main.js"></script>
+    <script src="js/soundclound.api.js"></script>
+    <script src="js/drawer/shader_loader.js"></script>
+    <script src="js/drawer/drawer.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>

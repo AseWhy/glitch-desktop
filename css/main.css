@@ -1,0 +1,84 @@
+@font-face {
+    font-family: Cyberpunk;
+    src: url("../fonts/True Lies.ttf");
+}
+@font-face {
+    font-family: Pixeles;
+    src: url("../fonts/18783.ttf");
+}
+#glitch{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+#ui{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+#player{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    display: none;
+}
+#ui_container{
+    position: relative;
+    left: 60%;
+    top: 77.5%;
+    width: 40%;
+    height: 22.5%;
+}
+#ui_data_cont{
+    margin-top: 6vh;
+}
+#ui_data_cont>#ui_play_start{
+    border-top: 1px solid yellow;
+    padding: 1vh;
+    width: max-content;
+    margin: auto;
+}
+#ui_data_cont>#ui_play_start:hover{
+    background: rgba(0, 0, 0, 0.5);
+}
+#ui_player_start_cnt{
+    color: yellow;
+    font: 1.5625vh Arial;
+    text-align: center;
+    width: 75%;
+    height: 75%;
+    margin-left: calc(16% + 30px);
+}
+#ui_player_control{
+    width: 2vw;
+    height: 20vh;
+    position: absolute;
+    left: 58vw;
+    top: 77.5vh;
+}
+#ui_center_cont{
+    height: max-content;
+    width: 2vw;
+    margin-top: 5.85vh;
+}
+.dt_button{
+    color: yellow;
+    width: max-content;
+    padding: 0.5vh;
+    margin: 0.5vh;
+    text-align: center;
+    width: 2vw;
+    font: 1.5625vh Arial;
+}
+.dt_button:hover{
+    background: rgba(0, 0, 0, 0.5);
+}

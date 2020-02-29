@@ -1,0 +1,282 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "Guaranteed performance for monitors from 1280x720 to 1920x1080.\n\nThe graphic acceleration capabilities are used, and so that the wallpaper does not load the video card during the game, or other resource-consuming tasks - pause.\n\nYou can put your image in the place of the standard, and much more. With time, I will add customization options.\n\nLocalization: \nwallpaper settings are available in two languages: Russian and English.",
+	"file" : "index.html",
+	"general" : 
+	{
+		"localization" : 
+		{
+			"en-us" : 
+			{
+				"ui_best_img" : "Images of the day",
+				"ui_bottom_left" : "Bottom Left",
+				"ui_bottom_middle" : "Bottom in the center",
+				"ui_bottom_right" : "Bottom Right",
+				"ui_center_left" : "Center left",
+				"ui_center_middle" : "In the center",
+				"ui_center_right" : "Center right",
+				"ui_change_interval" : "Change wallpaper once in (hours)",
+				"ui_city" : "City",
+				"ui_draw_allow" : "Draw ui",
+				"ui_glitch_power" : "Glitch power",
+				"ui_img_size_policy" : "Size policy",
+				"ui_increase" : "Clipping",
+				"ui_nothing" : "Nothing",
+				"ui_ownername" : "Username",
+				"ui_path_to_img" : "Own image",
+				"ui_rects" : "Number of visualization divisions",
+				"ui_room" : "Room",
+				"ui_self_type" : "Own wallpaper",
+				"ui_stantion" : "Stantion",
+				"ui_street" : "Street",
+				"ui_stretch" : "Stretch",
+				"ui_system_wp" : "Standard",
+				"ui_ui_align" : "Position of the interface",
+				"ui_ui_text_color" : "Interface color",
+				"ui_upper_left" : "Top left",
+				"ui_upper_middle" : "Top in the center",
+				"ui_upper_right" : "Top right",
+				"ui_use_system_wp" : "Use default wallpaper",
+				"ui_wallpp_type" : "Wallpaper type",
+				"ui_wp_index": "Wallpaper",
+				"ui_code": "Code"
+			},
+			"ru-ru" : 
+			{
+				"ui_best_img" : "Изображения дня",
+				"ui_bottom_left" : "Снизу слева",
+				"ui_bottom_middle" : "Снизу в центре",
+				"ui_bottom_right" : "Снизу справа",
+				"ui_center_left" : "В центре слева",
+				"ui_center_middle" : "В центре",
+				"ui_center_right" : "В центре справа",
+				"ui_change_interval" : "Сменять обои раз в (часов)",
+				"ui_city" : "Город",
+				"ui_draw_allow" : "Отрисовка интерфейса",
+				"ui_glitch_power" : "Сила помех",
+				"ui_img_size_policy" : "Политика изминения размера",
+				"ui_increase" : "Подогнать",
+				"ui_nothing" : "Нет",
+				"ui_ownername" : "Имя пользователя",
+				"ui_path_to_img" : "Свое изображение",
+				"ui_rects" : "Количество делений визуализации",
+				"ui_room" : "Комната",
+				"ui_self_type" : "Свои",
+				"ui_stantion" : "Станция",
+				"ui_street" : "Улица",
+				"ui_stretch" : "Растянуть",
+				"ui_system_wp" : "Стандартные",
+				"ui_ui_align" : "Положение интерфейса",
+				"ui_ui_text_color" : "Цвет интерфейса",
+				"ui_upper_left" : "Сверху слева",
+				"ui_upper_middle" : "Сверху в центре",
+				"ui_upper_right" : "Сверху справа",
+				"ui_use_system_wp" : "Использовать стандарные обои",
+				"ui_wallpp_type" : "Тип обоев",
+				"ui_wp_index": "Обои",
+				"ui_code": "Код"
+			}
+		},
+		"properties" : 
+		{
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"ui_change_interval" : 
+			{
+				"condition" : "ui_wallpp_type.value == 2",
+				"fraction" : false,
+				"max" : 24,
+				"min" : 1,
+				"order" : 102,
+				"text" : "ui_change_interval",
+				"type" : "slider",
+				"value" : 1
+			},
+			"ui_draw_allow" : 
+			{
+				"order" : 106,
+				"text" : "ui_draw_allow",
+				"type" : "bool",
+				"value" : true
+			},
+			"ui_glitch_power" : 
+			{
+				"fraction" : true,
+				"max" : 3,
+				"min" : 0,
+				"order" : 100,
+				"precision" : 2,
+				"step" : 1,
+				"text" : "ui_glitch_power",
+				"type" : "slider",
+				"value" : 3
+			},
+			"ui_img_size_policy" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "ui_nothing",
+						"value" : "0"
+					},
+					{
+						"label" : "ui_stretch",
+						"value" : "1"
+					},
+					{
+						"label" : "ui_increase",
+						"value" : "2"
+					}
+				],
+				"order" : 105,
+				"text" : "ui_img_size_policy",
+				"type" : "combo",
+				"value" : "1"
+			},
+			"ui_ownername" : 
+			{
+				"condition" : "ui_draw_allow.value == true",
+				"order" : 108,
+				"text" : "ui_ownername",
+				"type" : "textinput",
+				"value" : "Anykey"
+			},
+			"ui_path_to_img" : 
+			{
+				"condition" : "ui_wallpp_type.value == 0",
+				"order" : 103,
+				"text" : "ui_path_to_img",
+				"type" : "file",
+				"value" : ""
+			},
+			"ui_rects" : 
+			{
+				"condition" : "ui_draw_allow.value == true",
+				"fraction" : true,
+				"max" : 256,
+				"min" : 0,
+				"order" : 109,
+				"precision" : 2,
+				"step" : 1,
+				"text" : "ui_rects",
+				"type" : "slider",
+				"value" : 128
+			},
+			"ui_ui_align" : 
+			{
+				"condition" : "ui_draw_allow.value == true",
+				"options" : 
+				[
+					{
+						"label" : "ui_upper_left",
+						"value" : "0"
+					},
+					{
+						"label" : "ui_upper_middle",
+						"value" : "1"
+					},
+					{
+						"label" : "ui_upper_right",
+						"value" : "2"
+					},
+					{
+						"label" : "ui_center_left",
+						"value" : "3"
+					},
+					{
+						"label" : "ui_center_middle",
+						"value" : "4"
+					},
+					{
+						"label" : "ui_center_right",
+						"value" : "5"
+					},
+					{
+						"label" : "ui_bottom_left",
+						"value" : "6"
+					},
+					{
+						"label" : "ui_bottom_middle",
+						"value" : "7"
+					},
+					{
+						"label" : "ui_bottom_right",
+						"value" : "8"
+					}
+				],
+				"order" : 110,
+				"text" : "ui_ui_align",
+				"type" : "combo",
+				"value" : "8"
+			},
+			"ui_ui_text_color" : 
+			{
+				"condition" : "ui_draw_allow.value == true",
+				"order" : 107,
+				"text" : "ui_ui_text_color",
+				"type" : "color",
+				"value" : "1 1 0"
+			},
+			"ui_wallpp_type" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "ui_self_type",
+						"value" : "0"
+					},
+					{
+						"label" : "ui_system_wp",
+						"value" : "1"
+					}
+				],
+				"order" : 101,
+				"text" : "ui_wallpp_type",
+				"type" : "combo",
+				"value" : "0"
+			},
+			"ui_wp_index" : 
+			{
+				"condition" : "ui_wallpp_type.value == 1",
+				"options" : 
+				[
+					{
+						"label" : "ui_room",
+						"value" : "./img/default_0.jpg"
+					},
+					{
+						"label" : "ui_city",
+						"value" : "./img/default_1.jpg"
+					},
+					{
+						"label" : "ui_stantion",
+						"value" : "./img/default_2.jpg"
+					},
+					{
+						"label" : "ui_street",
+						"value" : "./img/default_3.jpg"
+					},
+					{
+						"label" : "ui_code",
+						"value" : "./img/default_4.jpg"
+					}
+				],
+				"order" : 104,
+				"text" : "ui_wp_index",
+				"type" : "combo"
+			}
+		},
+		"supportsaudioprocessing" : true
+	},
+	"preview" : "logo.gif",
+	"tags" : [ "Cyberpunk" ],
+	"title" : "Glitch desktop",
+	"type" : "web",
+	"visibility" : "public",
+	"workshopid" : "2002507481"
+}
