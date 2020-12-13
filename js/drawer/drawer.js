@@ -6,7 +6,6 @@ const   GLITCH_CANVAS   = document.getElementById("glitch"),
         UI_CTX          = UI_CANVAS.getContext("2d"),
         buffer          = GL.createBuffer(),
         range           = 15,
-        client          = new SoundCloundClient(),
         loader          = new ShaderDump();
 
 let programs,
@@ -45,8 +44,10 @@ let programs,
 window.onresize = () => {
     GL.canvas.width = window.innerWidth;
     GL.canvas.height = window.innerHeight;
+
     UI_CTX.canvas.width = window.innerWidth;
     UI_CTX.canvas.height = window.innerHeight;
+
     GL.viewport(0, 0, GL.canvas.width, GL.canvas.height);
 }; window.onresize();
 
@@ -55,10 +56,10 @@ GL.bindBuffer(GL.ARRAY_BUFFER, buffer);
 
 // Full Screen buffer
 GL.bufferData(GL.ARRAY_BUFFER, new Float32Array([
-  -1.0, -1.0,
-   1.0, -1.0,
-  -1.0,  1.0,
-   1.0,  1.0
+   -1.0, -1.0,
+    1.0, -1.0,
+   -1.0,  1.0,
+    1.0,  1.0
 ]), GL.STATIC_DRAW);
 
 let isPowerOf2 = n => n == 1 || (n & (n-1)) == 0,
@@ -72,20 +73,20 @@ function getTexture(callback){
     image.crossOrigin = "Anonymous";
     image.src = SETTINGS.path_to_img;
 
-
+    // Растянуть
     if(SETTINGS.img_size_policy == 1){
         image.width = window.innerWidth;
         image.height = window.innerHeight;
 
-        // clipping
-    }else if(SETTINGS.img_size_policy == 2){
+    // Подогнать
+    } else if(SETTINGS.img_size_policy == 2){
         let coifx = (window.innerWidth / image.width),
             coify = (window.innerHeight / image.height);
 
         if(coifx > coify){
             image.width *= coifx;
             image.height *= coifx;
-        }else{
+        } else {
             image.width *= coify;
             image.height *= coify;
         }
@@ -137,48 +138,12 @@ function getMountTag(index){
 function drawUi(fps, clear){
     date = new Date();
 
-    switch(SETTINGS.ui_align){
-        case 0://upper left
-            ui_buffer.x = window.innerWidth * posit[0][0];
-            ui_buffer.y = window.innerHeight * posit[0][1];
-        break;
-        case 1://middle up
-            ui_buffer.x = window.innerWidth * posit[1][0];
-            ui_buffer.y = window.innerHeight * posit[1][1];
-        break;
-        case 2://uper right
-            ui_buffer.x = window.innerWidth * posit[2][0];
-            ui_buffer.y = window.innerHeight * posit[2][1];
-        break;
-        case 3://center left
-            ui_buffer.x = window.innerWidth * posit[3][0];
-            ui_buffer.y = window.innerHeight * posit[3][1];
-        break;
-        case 4://center middle
-            ui_buffer.x = window.innerWidth * posit[4][0];
-            ui_buffer.y = window.innerHeight * posit[4][1];
-        break;
-        case 5://center right
-            ui_buffer.x = window.innerWidth * posit[5][0];
-            ui_buffer.y = window.innerHeight * posit[5][1];
-        break;
-        case 6://bottom left
-            ui_buffer.x = window.innerWidth * posit[6][0];
-            ui_buffer.y = window.innerHeight * posit[6][1];
-        break;
-        case 7://bottom middle
-            ui_buffer.x = window.innerWidth * posit[7][0];
-            ui_buffer.y = window.innerHeight * posit[7][1];
-        break;
-        case 8://bottom right
-            ui_buffer.x = window.innerWidth * posit[8][0];
-            ui_buffer.y = window.innerHeight * posit[8][1];
-        break;
-    }
+    ui_buffer.x = SETTINGS.ui_offset_x * window.screen.width + window.screen.availLeft + window.screen.availWidth * posit[SETTINGS.ui_align][0];
+    ui_buffer.y = SETTINGS.ui_offset_y * window.screen.height + window.screen.availTop + window.screen.availHeight * posit[SETTINGS.ui_align][1];
 
-    ui_buffer.text_size = window.innerHeight * 0.015625;
-    ui_buffer.width = window.innerWidth * 0.4;
-    ui_buffer.height = window.innerHeight * 0.2;
+    ui_buffer.text_size = window.screen.availHeight * 0.015625;
+    ui_buffer.width = window.screen.availWidth * 0.4;
+    ui_buffer.height = window.screen.availHeight * 0.2;
 
     ui_buffer.fps = "fps: " + fps;
 
@@ -187,8 +152,7 @@ function drawUi(fps, clear){
             ui_buffer.track_info.substring(mod(i, 256) * (ui_buffer.track_info.length - range), mod(i, 256) * (ui_buffer.track_info.length - range) + range)  +
             "  " + ui_buffer.fps;
     else
-        ui_buffer.buffer_1 = 
-            ui_buffer.track_info  + "  " + ui_buffer.fps;
+        ui_buffer.buffer_1 = ui_buffer.track_info  + "  " + ui_buffer.fps;
 
     ui_buffer.data = "Now " + date.getDate() + "th " + getMountTag(date.getMonth()) + ", " + date.getFullYear();
 
@@ -207,7 +171,7 @@ function drawUi(fps, clear){
         ui_buffer.height - 11 + ui_buffer.y
     );
 
-    UI_CTX.font = (window.innerHeight * 0.1) + "px Pixeles"
+    UI_CTX.font = (window.screen.availHeight * 0.1) + "px Pixeles"
 
     // Time
     ui_buffer.minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
@@ -216,7 +180,7 @@ function drawUi(fps, clear){
     UI_CTX.fillText(
         ui_buffer.hours,
         ui_buffer.x + 15,
-        (window.innerHeight * 0.05) + ui_buffer.y
+        (window.screen.availHeight * 0.05) + ui_buffer.y
     );
 
     ui_buffer.leng = UI_CTX.measureText(ui_buffer.minutes).width;
@@ -224,7 +188,7 @@ function drawUi(fps, clear){
     UI_CTX.fillText(
         ui_buffer.minutes,
         ui_buffer.x + 15,
-        (window.innerHeight * 0.15) + ui_buffer.y
+        (window.screen.availHeight * 0.15) + ui_buffer.y
     );
 
     UI_CTX.font = ui_buffer.text_size + "px Cyberpunk"
@@ -258,7 +222,7 @@ function drawUi(fps, clear){
         UI_CTX.fillText(
             ui_buffer.smile,
             ui_buffer.x + (ui_buffer.leng / 2) - (UI_CTX.measureText(ui_buffer.smile).width / 2) + 15,
-            ui_buffer.y + (window.innerHeight * 0.05) + (ui_buffer.text_size)
+            ui_buffer.y + (window.screen.availHeight * 0.05) + (ui_buffer.text_size)
         );
 
         for(let i = 0, dh = 0;i < SETTINGS.rects;i++){
@@ -273,7 +237,7 @@ function drawUi(fps, clear){
 
             cur_step += distace + step;
         }
-    }else{
+    } else {
         // separator
 
         UI_CTX.font = ui_buffer.text_size + "px Calibri";
@@ -283,42 +247,10 @@ function drawUi(fps, clear){
         UI_CTX.fillText(
             ui_buffer.smile,
             ui_buffer.x + (ui_buffer.leng / 2) - (UI_CTX.measureText(ui_buffer.smile).width / 2) + 15,
-            ui_buffer.y + (window.innerHeight * 0.05) + (ui_buffer.text_size)
+            ui_buffer.y + (window.screen.availHeight * 0.05) + (ui_buffer.text_size)
         );
     }
     i++;
-}
-
-window.onclick = (e) => {
-  /*  if(ui_buffer.hover === 0){
-        let a = words[Math.floor(Math.random() * words.length)];
-        let i = 0;
-        let d = 0;
-        client.player.volume = SETTINGS.player_volume;
-
-        client.find(a, 0).then(data => {
-            let list = data.TurnToPlaylist();
-
-            list.on("playstart", function(track){
-                i = setInterval(() => {
-                    if(mod(d, 20) < 0.5){
-                        ui_buffer.track_info = track.title;
-                    }else{
-                        ui_buffer.track_info = track.GetPlayTime();
-                    }
-                    d++;
-                }, 500);
-            });
-
-            list.on("playend", function(track){
-                clearInterval(i);
-            });
-
-            let turn = list.Play();
-
-            ui_buffer.playstart = true;
-        });
-    }*/
 }
 
 window.wallpaperRegisterAudioListener && window.wallpaperRegisterAudioListener(data => {
@@ -360,33 +292,32 @@ startrender = () => {
     let d_tex_w = 0,
         d_tex_h = 0;
 
-    // textures
-        // main
-        const unit_btm = 0;
+    const unit_btm = 0;
 
-        let bitmap = GL.createTexture();
-        let image = null;
+    //#region Textures
+    let bitmap = GL.createTexture();
+    let image = null;
 
-        GL.bindTexture(GL.TEXTURE_2D, bitmap);
-        
-        update_texture = () => {
-            getTexture(data => {
-                d_tex_w = data.width;
-                d_tex_h = data.height;
+    GL.bindTexture(GL.TEXTURE_2D, bitmap);
     
-                GL.texImage2D(GL.TEXTURE_2D, 0, GL.RGBA, GL.RGBA, GL.UNSIGNED_BYTE, data);
-                image = data;
-            });
-        }
+    update_texture = () => {
+        getTexture(data => {
+            d_tex_w = data.width;
+            d_tex_h = data.height;
 
-        update_texture();
-        
+            GL.texImage2D(GL.TEXTURE_2D, 0, GL.RGBA, GL.RGBA, GL.UNSIGNED_BYTE, data);
 
-        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_S, GL.CLAMP_TO_EDGE);
-        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_T, GL.CLAMP_TO_EDGE);
-        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.LINEAR);
+            image = data;
+        });
+    }
 
-    //
+    update_texture();
+
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_S, GL.CLAMP_TO_EDGE);
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_T, GL.CLAMP_TO_EDGE);
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.LINEAR);
+    //#endregion
+
     // uniforms
     let step         = GL.getUniformLocation(programs.particle, "u_step"),
         texture      = GL.getUniformLocation(programs.particle, "u_texture"),
@@ -413,9 +344,12 @@ startrender = () => {
     }, 1000);
 
     // draw
-    function draw(now){
+    function draw(){
         // Float Overflow Protection
-        if(step_c >= 2139095039) step_c = 0;
+        if(step_c >= 2139095039)
+            step_c = 0;
+
+        console.log(step_c)
 
         if(SETTINGS.glitch_power > 0){
             // clear

@@ -2,7 +2,7 @@
   precision mediump float;
 #endif
 
-#define LINE_RADIUSES 7
+#define LINE_RADIUSES 12
 #define D_OFFSET 5.0
 
 uniform int       u_step;               // шаг отрисовки
@@ -13,7 +13,9 @@ uniform vec2      u_resolution;         // разрешение экрана
 uniform int       u_glitch_power;       // сила помех
 uniform vec4      u_gliches[5];         // данные гличей
 
-//gl_FragCoord - координаты отрисовки
+float f_mod(float x, float y) {
+  return x / y - floor(x / y);
+}
 
 vec4 getPoint(float x, float y){
   return texture2D(
@@ -43,7 +45,7 @@ bool isGliched(float x, float y){
 
 
 void main(void) {
-  float u_fl = mod(float(u_step), u_resolution.y);
+  float u_fl = f_mod(float(u_step), u_resolution.y);
   
   if(u_glitch_power >= 0){
     gl_FragColor = getPoint(floor(gl_FragCoord.x), floor(gl_FragCoord.y));
@@ -54,15 +56,16 @@ void main(void) {
       int(gl_FragCoord.y) - LINE_RADIUSES < int(u_resolution.y * u_fl) &&
       int(gl_FragCoord.y) + LINE_RADIUSES > int(u_resolution.y * u_fl)
     ){
-      gl_FragColor = getPoint(floor(gl_FragCoord.x + D_OFFSET), floor(gl_FragCoord.y)) + vec4(0.03, 0.0, 0.0, 0.0); 
-    }else
-      if(u_glitch_power >= 2)
-        if(isGliched(floor(gl_FragCoord.x), floor(gl_FragCoord.y))){
+      gl_FragColor = getPoint(floor(gl_FragCoord.x + D_OFFSET), floor(gl_FragCoord.y)) + vec4(0.05, 0.0, 0.0, 0.0); 
+    } else if(u_glitch_power >= 2) {
+        if(isGliched(floor(gl_FragCoord.x), floor(gl_FragCoord.y))) {
           gl_FragColor = getPoint(floor(gl_FragCoord.x + u_random), floor(gl_FragCoord.y));
-        }else
-          if(u_glitch_power >= 3)
-            if(mod(floor(gl_FragCoord.y), 2.0) != 0.0)
+        } else if(u_glitch_power >= 3) {
+            if(mod(floor(gl_FragCoord.y), 2.0) != 0.0) {
               gl_FragColor = getPoint(floor(gl_FragCoord.x), floor(gl_FragCoord.y));
-            else
+            } else {
               gl_FragColor = getPoint(floor(gl_FragCoord.x + u_random), floor(gl_FragCoord.y)) - vec4(0.1, 0.1, 0.1, 0.0);
+            }
+        }
+    }
 }

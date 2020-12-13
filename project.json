@@ -1,6 +1,6 @@
 {
 	"contentrating" : "Everyone",
-	"description" : "Guaranteed performance for monitors from 1280x720 to 1920x1080.\n\nThe graphic acceleration capabilities are used, and so that the wallpaper does not load the video card during the game, or other resource-consuming tasks - pause.\n\nYou can put your image in the place of the standard, and much more. With time, I will add customization options.\n\nLocalization: \nwallpaper settings are available in two languages: Russian and English.",
+	"description" : "[img]https://i.imgur.com/fWlMib7.png[/img]\r\n\r\n[url=https://github.com/AseWhy/glitch-desktop][img]https://i.imgur.com/dojw8Cz.png[/img][/url]\r\n\r\n[img]https://i.imgur.com/WO3fWxX.png[/img]\r\n\r\nGuaranteed performance for monitors from 1280x720 to 1920x1080.\r\n\r\nThe graphic acceleration capabilities are used, and so that the wallpaper does not load the video card during the game, or other resource-consuming tasks - pause.\r\n\r\nYou can put your image in the place of the standard, and much more. With time, I will add customization options.\r\n\r\nVersion [0.75]\r\n- Now you can choose 5 expressions from the available standard ones, in older versions 1 was available, or choose your own.",
 	"file" : "index.html",
 	"general" : 
 	{
@@ -17,11 +17,14 @@
 				"ui_center_right" : "Center right",
 				"ui_change_interval" : "Change wallpaper once in (hours)",
 				"ui_city" : "City",
+				"ui_code" : "Code",
 				"ui_draw_allow" : "Draw ui",
 				"ui_glitch_power" : "Glitch power",
 				"ui_img_size_policy" : "Size policy",
 				"ui_increase" : "Clipping",
 				"ui_nothing" : "Nothing",
+				"ui_offset_x" : "Screen x",
+				"ui_offset_y" : "Screen y",
 				"ui_ownername" : "Username",
 				"ui_path_to_img" : "Own image",
 				"ui_rects" : "Number of visualization divisions",
@@ -38,8 +41,7 @@
 				"ui_upper_right" : "Top right",
 				"ui_use_system_wp" : "Use default wallpaper",
 				"ui_wallpp_type" : "Wallpaper type",
-				"ui_wp_index": "Wallpaper",
-				"ui_code": "Code"
+				"ui_wp_index" : "Wallpaper"
 			},
 			"ru-ru" : 
 			{
@@ -52,11 +54,14 @@
 				"ui_center_right" : "В центре справа",
 				"ui_change_interval" : "Сменять обои раз в (часов)",
 				"ui_city" : "Город",
+				"ui_code" : "Код",
 				"ui_draw_allow" : "Отрисовка интерфейса",
 				"ui_glitch_power" : "Сила помех",
 				"ui_img_size_policy" : "Политика изминения размера",
 				"ui_increase" : "Подогнать",
 				"ui_nothing" : "Нет",
+				"ui_offset_x" : "Сдвиг интерфейса x",
+				"ui_offset_y" : "Сдвиг интерфейса y",
 				"ui_ownername" : "Имя пользователя",
 				"ui_path_to_img" : "Свое изображение",
 				"ui_rects" : "Количество делений визуализации",
@@ -73,8 +78,7 @@
 				"ui_upper_right" : "Сверху справа",
 				"ui_use_system_wp" : "Использовать стандарные обои",
 				"ui_wallpp_type" : "Тип обоев",
-				"ui_wp_index": "Обои",
-				"ui_code": "Код"
+				"ui_wp_index" : "Обои"
 			}
 		},
 		"properties" : 
@@ -137,6 +141,32 @@
 				"text" : "ui_img_size_policy",
 				"type" : "combo",
 				"value" : "1"
+			},
+			"ui_offset_x" : 
+			{
+				"condition" : "ui_draw_allow.value == true",
+				"fraction" : true,
+				"max" : 64,
+				"min" : 0,
+				"order" : 109,
+				"precision" : 2,
+				"step" : 1,
+				"text" : "ui_offset_x",
+				"type" : "slider",
+				"value" : 0
+			},
+			"ui_offset_y" : 
+			{
+				"condition" : "ui_draw_allow.value == true",
+				"fraction" : true,
+				"max" : 64,
+				"min" : 0,
+				"order" : 109,
+				"precision" : 2,
+				"step" : 1,
+				"text" : "ui_offset_y",
+				"type" : "slider",
+				"value" : 0
 			},
 			"ui_ownername" : 
 			{
@@ -276,7 +306,9 @@
 	"preview" : "logo.gif",
 	"tags" : [ "Cyberpunk" ],
 	"title" : "Glitch desktop",
-	"type" : "web",
+	"type" : "Web",
+	"version" : 1,
 	"visibility" : "public",
-	"workshopid" : "2002507481"
+	"workshopid" : "2002507481",
+	"workshopurl" : "steam://url/CommunityFilePage/2002507481"
 }

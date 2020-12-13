@@ -42,17 +42,23 @@
     <script>
         // Settings
 
-        let SETTINGS = {
+        let SETTINGS = localStorage.getItem('SETTINGS') != null ? JSON.parse(localStorage.getItem('SETTINGS')) : {
             ui: false,
             glitch_power: 3,
             path_to_img: "./img/default_0.jpg",
             img_size_policy: 1, // Nothing Stretch Increase
             ui_text_color: "yellow",
             ownername: "Сoolhacker",
+            ui_offset_y: 0,
+            ui_offset_x: 0,
             rects: 256,
             player_volume: 0.5,
             ui_align: 8 // bottom right
         }, update_texture = () => {};
+
+        function updateStor(){
+            localStorage.setItem('SETTINGS', JSON.stringify(SETTINGS));
+        }
 
         window.wallpaperPropertyListener = {
             applyUserProperties: (properties) => {
@@ -61,11 +67,13 @@
 
                 if(properties.ui_img_size_policy != undefined){
                     SETTINGS.img_size_policy = properties.ui_img_size_policy.value;
+
                     update_texture();
                 }
                 
                 if(properties.ui_path_to_img != undefined){
                     SETTINGS.path_to_img = "file:///" + properties.ui_path_to_img.value;
+
                     update_texture();
                 }
 
@@ -79,6 +87,7 @@
 
                 if(properties.ui_ui_text_color != undefined){
                     let color = properties.ui_ui_text_color.value.split(" ");
+
                     SETTINGS.ui_text_color = `rgb(${parseFloat(color[0]) * 255}, ${parseFloat(color[1]) * 255}, ${parseFloat(color[2]) * 255})`;
                 }
 
@@ -92,15 +101,25 @@
 
                 if(properties.ui_wp_index != undefined){
                     SETTINGS.path_to_img = properties.ui_wp_index.value;
+
                     update_texture();
                 }
+
+                if(properties.ui_offset_y != undefined) {
+                    SETTINGS.ui_offset_y = properties.ui_offset_y.value;
+                }
+
+                if(properties.ui_offset_x != undefined) {
+                    SETTINGS.ui_offset_x = properties.ui_offset_x.value;
+                }
+
+                updateStor();
             }
         }
 
     </script>
     
     <script src="js/main.js"></script>
-    <script src="js/soundclound.api.js"></script>
     <script src="js/drawer/shader_loader.js"></script>
     <script src="js/drawer/drawer.js"></script>
     <script src="js/ui.js"></script>
