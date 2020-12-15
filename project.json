@@ -1,6 +1,6 @@
 {
 	"contentrating" : "Everyone",
-	"description" : "[img]https://i.imgur.com/fWlMib7.png[/img]\r\n\r\n[url=https://github.com/AseWhy/glitch-desktop][img]https://i.imgur.com/dojw8Cz.png[/img][/url]\r\n\r\n[img]https://i.imgur.com/WO3fWxX.png[/img]\r\n\r\nGuaranteed performance for monitors from 1280x720 to 1920x1080.\r\n\r\nThe graphic acceleration capabilities are used, and so that the wallpaper does not load the video card during the game, or other resource-consuming tasks - pause.\r\n\r\nYou can put your image in the place of the standard, and much more. With time, I will add customization options.\r\n\r\nVersion [0.75]\r\n- Now you can choose 5 expressions from the available standard ones, in older versions 1 was available, or choose your own.",
+	"description" : "[img]https://i.imgur.com/fWlMib7.png[/img]\n\n[url=https://github.com/AseWhy/glitch-desktop][img]https://i.imgur.com/dojw8Cz.png[/img][/url]\n\n[img]https://i.imgur.com/WO3fWxX.png[/img]\n\nGuaranteed performance for monitors from 1280x720 to 1920x1080.\n\nThe graphic acceleration capabilities are used, and so that the wallpaper does not load the video card during the game, or other resource-consuming tasks - pause.\n\nYou can put your image in the place of the standard, and much more. With time, I will add customization options.\n\nVersion [0.75]\n- Now you can choose 5 expressions from the available standard ones, in older versions 1 was available, or choose your own.\n\nVersion [0.78]\n- Now, if you have more than one monitor, you can shift the interface to other monitors by editing the 'Screen x' and 'Screen y' options. Also, now the interface shifts according to the position of your taskbar, but only on the main monitor, due to technical limitations on other monitors, the taskbar will not affect the position of the interface in any way",
 	"file" : "index.html",
 	"general" : 
 	{
@@ -27,6 +27,7 @@
 				"ui_offset_y" : "Screen y",
 				"ui_ownername" : "Username",
 				"ui_path_to_img" : "Own image",
+				"ui_plugin_audio_allow" : "Audio visualization plugin",
 				"ui_rects" : "Number of visualization divisions",
 				"ui_room" : "Room",
 				"ui_self_type" : "Own wallpaper",
@@ -64,6 +65,7 @@
 				"ui_offset_y" : "Сдвиг интерфейса y",
 				"ui_ownername" : "Имя пользователя",
 				"ui_path_to_img" : "Свое изображение",
+				"ui_plugin_audio_allow" : "Плагин визаулизации аудио",
 				"ui_rects" : "Количество делений визуализации",
 				"ui_room" : "Комната",
 				"ui_self_type" : "Свои",
@@ -96,7 +98,7 @@
 				"fraction" : false,
 				"max" : 24,
 				"min" : 1,
-				"order" : 102,
+				"order" : 104,
 				"text" : "ui_change_interval",
 				"type" : "slider",
 				"value" : 1
@@ -111,7 +113,7 @@
 			"ui_glitch_power" : 
 			{
 				"fraction" : true,
-				"max" : 3,
+				"max" : 4,
 				"min" : 0,
 				"order" : 100,
 				"precision" : 2,
@@ -161,7 +163,7 @@
 				"fraction" : true,
 				"max" : 64,
 				"min" : 0,
-				"order" : 109,
+				"order" : 110,
 				"precision" : 2,
 				"step" : 1,
 				"text" : "ui_offset_y",
@@ -170,8 +172,8 @@
 			},
 			"ui_ownername" : 
 			{
-				"condition" : "ui_draw_allow.value == true",
-				"order" : 108,
+				"condition" : "ui_plugin_audio_allow.value == true && ui_draw_allow.value == true",
+				"order" : 112,
 				"text" : "ui_ownername",
 				"type" : "textinput",
 				"value" : "Anykey"
@@ -184,13 +186,21 @@
 				"type" : "file",
 				"value" : ""
 			},
-			"ui_rects" : 
+			"ui_plugin_audio_allow" : 
 			{
 				"condition" : "ui_draw_allow.value == true",
+				"order" : 111,
+				"text" : "ui_plugin_audio_allow",
+				"type" : "bool",
+				"value" : true
+			},
+			"ui_rects" : 
+			{
+				"condition" : "ui_plugin_audio_allow.value == true && ui_draw_allow.value == true",
 				"fraction" : true,
 				"max" : 256,
 				"min" : 0,
-				"order" : 109,
+				"order" : 113,
 				"precision" : 2,
 				"step" : 1,
 				"text" : "ui_rects",
@@ -239,7 +249,7 @@
 						"value" : "8"
 					}
 				],
-				"order" : 110,
+				"order" : 108,
 				"text" : "ui_ui_align",
 				"type" : "combo",
 				"value" : "8"
@@ -296,7 +306,7 @@
 						"value" : "./img/default_4.jpg"
 					}
 				],
-				"order" : 104,
+				"order" : 102,
 				"text" : "ui_wp_index",
 				"type" : "combo"
 			}
@@ -307,7 +317,7 @@
 	"tags" : [ "Cyberpunk" ],
 	"title" : "Glitch desktop",
 	"type" : "Web",
-	"version" : 1,
+	"version" : 3,
 	"visibility" : "public",
 	"workshopid" : "2002507481",
 	"workshopurl" : "steam://url/CommunityFilePage/2002507481"

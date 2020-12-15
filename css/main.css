@@ -1,84 +1,105 @@
 @font-face {
     font-family: Cyberpunk;
-    src: url("../fonts/True Lies.ttf");
+    src: url("../fonts/Cyberpunk.ttf");
 }
+
 @font-face {
     font-family: Pixeles;
-    src: url("../fonts/18783.ttf");
+    src: url("../fonts/Pixeles.ttf");
 }
+
 #glitch{
     position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
-    z-index: 999;
+    z-index: 0;
 }
+
 #ui{
     position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
-    z-index: 1000;
+    z-index: 1;
 }
-#player{
+
+a {
+    color: skyblue;
+}
+
+.ui_notify_row {
+    display: grid;
+    grid-template-areas:
+        "."
+        "."
+        ".";
+    grid-template-rows: 2.5em max-content;
+    padding: 0.5em;
+    backdrop-filter: grayscale(1) blur(5px);
+    text-transform: uppercase;
+    font-family: monospace;
+    border: 1px solid;
+    color: white;
+    margin: 0.5em 0;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
+}
+
+.ui_notify_row:first-child {
+    margin: 0;
+}
+
+.ui_notify_row.hide {
+    opacity: 0;
+}
+
+.ui_notify {
+    display: block;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 1001;
+    width: 300pt;
+    left: calc((100% - 300pt) - 0.5em);
+    height: min-content;
+    z-index: 2;
+    top: 0.5em;
+}
+
+.ui_notify_header {
+    font-size: 2em;
+    height: 2em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ui_notify_body {
+    margin: 0.5em 0.25em;
+    word-break: break-word;
+}
+
+.ui_notify_control {
+    display: grid;
+    grid-template-areas: ". .";
+}
+
+.ui_notify_control.ones {
+    grid-template-areas: ".";
+}
+
+.ui_notify_control.zeroes {
     display: none;
 }
-#ui_container{
-    position: relative;
-    left: 60%;
-    top: 77.5%;
-    width: 40%;
-    height: 22.5%;
+
+.ui_notify_button {
+    border: 0.1em solid transparent;
+    background: none;
+    color: inherit;
+    outline: none;
+    padding: 0.25em;
 }
-#ui_data_cont{
-    margin-top: 6vh;
-}
-#ui_data_cont>#ui_play_start{
-    border-top: 1px solid yellow;
-    padding: 1vh;
-    width: max-content;
-    margin: auto;
-}
-#ui_data_cont>#ui_play_start:hover{
-    background: rgba(0, 0, 0, 0.5);
-}
-#ui_player_start_cnt{
-    color: yellow;
-    font: 1.5625vh Arial;
-    text-align: center;
-    width: 75%;
-    height: 75%;
-    margin-left: calc(16% + 30px);
-}
-#ui_player_control{
-    width: 2vw;
-    height: 20vh;
-    position: absolute;
-    left: 58vw;
-    top: 77.5vh;
-}
-#ui_center_cont{
-    height: max-content;
-    width: 2vw;
-    margin-top: 5.85vh;
-}
-.dt_button{
-    color: yellow;
-    width: max-content;
-    padding: 0.5vh;
-    margin: 0.5vh;
-    text-align: center;
-    width: 2vw;
-    font: 1.5625vh Arial;
-}
-.dt_button:hover{
-    background: rgba(0, 0, 0, 0.5);
+
+.ui_notify_button:hover {
+    border: 0.1em solid white;
+    background-color: rgba(0, 0, 0, 0.1);
 }

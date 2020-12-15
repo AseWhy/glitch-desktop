@@ -1,32 +1,14 @@
 'use strict';
 
-function FromLocal(url){
-    return new Promise((res, rej) => {
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-
-        xhr.send();
-        
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState != 4) return;
-            
-            if (xhr.status === 200 || xhr.status === 0) {
-                res(xhr.responseText);
-            } else {
-                console.log(xhr.status)
-                rej(xhr.status);
-            }
-        }
-    });
-}
-
 function createShader(gl, sourceCode, type) {
-    let shader = GL.createShader(type);
-    GL.shaderSource(shader, sourceCode);
-    GL.compileShader(shader);
+    let shader = gl.createShader(type);
 
-    if ( !GL.getShaderParameter(shader, GL.COMPILE_STATUS) ) {
-        let info = GL.getShaderInfoLog( shader );
+    gl.shaderSource(shader, sourceCode);
+    gl.compileShader(shader);
+
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        const info = gl.getShaderInfoLog( shader );
+
         throw 'Could not compile WebGL program. \n\n' + info;
     }
 
@@ -34,15 +16,16 @@ function createShader(gl, sourceCode, type) {
 }
 
 function toProgram(gl, vx, fg){
-    let program = GL.createProgram();
+    let program = gl.createProgram();
 
-    GL.attachShader(program, createShader(gl, vx, GL.VERTEX_SHADER));
-    GL.attachShader(program, createShader(gl, fg, GL.FRAGMENT_SHADER));
+    gl.attachShader(program, createShader(gl, vx, gl.VERTEX_SHADER));
+    gl.attachShader(program, createShader(gl, fg, gl.FRAGMENT_SHADER));
 
-    GL.linkProgram(program);
+    gl.linkProgram(program);
 
-    if ( !GL.getProgramParameter( program, GL.LINK_STATUS) ) {
-        let info = GL.getProgramInfoLog(program);
+    if (!gl.getProgramParameter( program, gl.LINK_STATUS)) {
+        const info = gl.getProgramInfoLog(program);
+
         throw 'Could not compile WebGL program. \n\n' + info;
     }
 
@@ -57,9 +40,10 @@ class Header{
 }
 
 class ShaderDump{
-    constructor(){
+    constructor(GL){
         this.headers = [];
         this.result_v  = null;
+        this.gl = GL;
     }
 
     clear(){
@@ -102,8 +86,6 @@ class ShaderDump{
                 buffer      = new Array(dataline.length * 2),
                 header      = getHeaders();
 
-            console.log(header)
-
             // safty value
             buffer.fill(false);
 
@@ -112,7 +94,7 @@ class ShaderDump{
                     buffer[i * 2] = data;
                     
                     if(buffer[i * 2] && buffer[i * 2 + 1])
-                        programs[dataline[i]] = toProgram(GL, buffer[i * 2], header + buffer[i * 2 + 1]);
+                        programs[dataline[i]] = toProgram(self.gl, buffer[i * 2], header + buffer[i * 2 + 1]);
                     
                     if(checkAll(buffer)){
                         self.result_v = programs;
@@ -124,10 +106,11 @@ class ShaderDump{
                     buffer[i * 2 + 1] = data;
                     
                     if(buffer[i * 2] && buffer[i * 2 + 1])
-                    programs[dataline[i]] = toProgram(GL, buffer[i * 2], header + buffer[i * 2 + 1]);
+                    programs[dataline[i]] = toProgram(self.gl, buffer[i * 2], header + buffer[i * 2 + 1]);
                     
                     if(checkAll(buffer)){
                         self.result_v = programs;
+
                         res(programs);
                     }
                 });
